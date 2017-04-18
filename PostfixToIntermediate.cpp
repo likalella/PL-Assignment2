@@ -75,6 +75,10 @@ int PostfixToIntermediate::Is_open_parentheses(int index){
 	}
 	index += 2;
 
+	//function 확인
+	index = Is_op(index);
+	index += 2;
+
 	//term2 확인
 
 	//괄호 인지 확인
@@ -89,12 +93,10 @@ int PostfixToIntermediate::Is_open_parentheses(int index){
 	else if (isdigit(linepointer[index])){
 		index = Is_con(index);
 	}
-	index += 2;
 
-	//function 확인
-	index = Is_op(index);
+	index += 1;
 
-	return index + 1;
+	return index;
 }
 
 //index에 문자 들어와야함
@@ -126,7 +128,7 @@ int PostfixToIntermediate::Is_con(int index){
 	Intermediate.Append("push ");
 	//상수 마지막 index 찾기
 	for (i = index; i < linelen; i++){
-		if (linepointer[i] == ' '){
+		if (linepointer[i] == ' ' || linepointer[i] == ')'){
 			break;
 		}
 		else{
