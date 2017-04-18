@@ -28,6 +28,7 @@ private:
 
 	//줄 단위로 임시 저장
 	CStringA tmp_str;
+	CStringA pr_str;
 
 	//에러 번호
 	//0: 에러 X, 1: 피연산자가 실수 일때, 2: 괄호 잘못사용 되었을때
