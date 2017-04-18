@@ -60,6 +60,7 @@ void InfixToPostfix::make_Postfix(){
 		linestart = i;
 		//임시 tmp_str 초기화
 		tmp_str.Format("");
+		pr_str.Format("");
 
 		//괄호 수 확인
 		int tmpj = i;
@@ -139,13 +140,14 @@ void InfixToPostfix::make_Postfix(){
 				message.Append("\r\n");
 		}
 		else{
-			listofPostfix.push_back(tmp_str);
-			message.Append(tmp_str);
+			//listofPostfix.push_back(tmp_str);
+			//message.Append(tmp_str);
+			listofPostfix.push_back(pr_str);
+			message.Append(pr_str);
 		}
 
 		//에러 출력, 없으면 아무것도 출력되지 않음
 		printerror();
-
 	}
 
 }
@@ -184,6 +186,7 @@ int InfixToPostfix::Is_open_parentheses(int index){
 	//seq 2: <term>
 	//seq 3: )
 	tmp_str.AppendChar(tmpbuf[index]);
+	pr_str.AppendChar(tmpbuf[index]);
 	//seq 0: <term> 
 	for (i = index + 1; i < len; i++){
 
@@ -243,7 +246,7 @@ int InfixToPostfix::Is_open_parentheses(int index){
 		errnum = 2;
 		return i - 1;
 	}
-
+	pr_str.AppendChar(' ');
 	//seq 1: <fun>
 	for (; i < len; i++){
 
@@ -281,6 +284,7 @@ int InfixToPostfix::Is_open_parentheses(int index){
 		return i - 1;
 	}
 	tmp_str.AppendChar(' ');
+	pr_str.AppendChar(' ');
 	//seq 2: <term>
 	for (; i < len; i++){
 
@@ -353,6 +357,7 @@ int InfixToPostfix::Is_open_parentheses(int index){
 			tmp_str.AppendChar(' ');
 			tmp_str.Append(oper[this_op_num]);
 			tmp_str.AppendChar(tmpbuf[i]);
+			pr_str.AppendChar(tmpbuf[i]);
 			return i;
 		}
 		//괄호 잘못됨
@@ -383,6 +388,7 @@ int InfixToPostfix::Is_val(int index){
 			return index;
 		}
 		tmp_str.AppendChar(tmpbuf[index]);
+		pr_str.AppendChar(tmpbuf[index]);
 	}
 
 	return index - 1;
@@ -412,6 +418,7 @@ int InfixToPostfix::Is_con(int index){
 			return index;
 		}
 		tmp_str.AppendChar(tmpbuf[index]);
+		pr_str.AppendChar(tmpbuf[index]);
 	}
 	return index - 1;
 }
@@ -438,6 +445,7 @@ int InfixToPostfix::Is_op(int index){
 					correct = false;
 					break;
 				}
+				pr_str.AppendChar(tmpbuf[index + j]);
 			}
 			if (correct){
 				//연산자 뒤에 공백 혹은 여는 괄호 있어야한다.
@@ -469,6 +477,7 @@ int InfixToPostfix::Is_op(int index){
 int InfixToPostfix::Is_minus_con(int index){
 	//-가 문장 끝 오는 것 방지하는 if문
 	tmp_str.AppendChar(tmpbuf[index]);
+	pr_str.AppendChar(tmpbuf[index]);
 	if (index + 1 < len){
 		if (tmpbuf[index + 1] == '-'){
 			errnum = 5;
