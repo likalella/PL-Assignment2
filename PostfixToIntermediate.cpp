@@ -75,7 +75,7 @@ int PostfixToIntermediate::Is_open_parentheses(int index){
 	}
 	index += 2;
 
-	//function 확인
+	//lika : function 확인
 	index = Is_op(index);
 	index += 2;
 
@@ -94,9 +94,9 @@ int PostfixToIntermediate::Is_open_parentheses(int index){
 		index = Is_con(index);
 	}
 
-	index += 1;
+	index += 1; //lika
 
-	return index;
+	return index; //lika
 }
 
 //index에 문자 들어와야함
@@ -128,7 +128,7 @@ int PostfixToIntermediate::Is_con(int index){
 	Intermediate.Append("push ");
 	//상수 마지막 index 찾기
 	for (i = index; i < linelen; i++){
-		if (linepointer[i] == ' ' || linepointer[i] == ')'){
+		if (linepointer[i] == ' ' || linepointer[i] == ')'){ //lika
 			break;
 		}
 		else{

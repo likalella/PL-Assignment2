@@ -47,6 +47,7 @@ InfixToPostfix::~InfixToPostfix(){
 }
 
 //후위표기식으로 만드는 함수
+//lika : 중위표기식으로 바꿈.
 void InfixToPostfix::make_Postfix(){
 	int i = 0;
 	//임시 에러번호 (가장 첫 에러를 출력하기 위한)
@@ -60,7 +61,7 @@ void InfixToPostfix::make_Postfix(){
 		linestart = i;
 		//임시 tmp_str 초기화
 		tmp_str.Format("");
-		pr_str.Format("");
+		pr_str.Format(""); // lika
 
 		//괄호 수 확인
 		int tmpj = i;
@@ -142,8 +143,9 @@ void InfixToPostfix::make_Postfix(){
 		else{
 			//listofPostfix.push_back(tmp_str);
 			//message.Append(tmp_str);
-			listofPostfix.push_back(pr_str);
-			message.Append(pr_str);
+			// lika : tmp_str대신 pr_str 추가
+			listofPostfix.push_back(pr_str);	
+			message.Append(pr_str);	
 		}
 
 		//에러 출력, 없으면 아무것도 출력되지 않음
@@ -186,7 +188,7 @@ int InfixToPostfix::Is_open_parentheses(int index){
 	//seq 2: <term>
 	//seq 3: )
 	tmp_str.AppendChar(tmpbuf[index]);
-	pr_str.AppendChar(tmpbuf[index]);
+	pr_str.AppendChar(tmpbuf[index]); // lika :
 	//seq 0: <term> 
 	for (i = index + 1; i < len; i++){
 
@@ -246,7 +248,7 @@ int InfixToPostfix::Is_open_parentheses(int index){
 		errnum = 2;
 		return i - 1;
 	}
-	pr_str.AppendChar(' ');
+	pr_str.AppendChar(' '); // lika : 
 	//seq 1: <fun>
 	for (; i < len; i++){
 
@@ -284,7 +286,7 @@ int InfixToPostfix::Is_open_parentheses(int index){
 		return i - 1;
 	}
 	tmp_str.AppendChar(' ');
-	pr_str.AppendChar(' ');
+	pr_str.AppendChar(' '); // lika : 
 	//seq 2: <term>
 	for (; i < len; i++){
 
@@ -357,7 +359,7 @@ int InfixToPostfix::Is_open_parentheses(int index){
 			tmp_str.AppendChar(' ');
 			tmp_str.Append(oper[this_op_num]);
 			tmp_str.AppendChar(tmpbuf[i]);
-			pr_str.AppendChar(tmpbuf[i]);
+			pr_str.AppendChar(tmpbuf[i]); // lika
 			return i;
 		}
 		//괄호 잘못됨
@@ -388,7 +390,7 @@ int InfixToPostfix::Is_val(int index){
 			return index;
 		}
 		tmp_str.AppendChar(tmpbuf[index]);
-		pr_str.AppendChar(tmpbuf[index]);
+		pr_str.AppendChar(tmpbuf[index]); // lika
 	}
 
 	return index - 1;
@@ -418,7 +420,7 @@ int InfixToPostfix::Is_con(int index){
 			return index;
 		}
 		tmp_str.AppendChar(tmpbuf[index]);
-		pr_str.AppendChar(tmpbuf[index]);
+		pr_str.AppendChar(tmpbuf[index]); // lika
 	}
 	return index - 1;
 }
@@ -445,7 +447,7 @@ int InfixToPostfix::Is_op(int index){
 					correct = false;
 					break;
 				}
-				pr_str.AppendChar(tmpbuf[index + j]);
+				pr_str.AppendChar(tmpbuf[index + j]); // lika
 			}
 			if (correct){
 				//연산자 뒤에 공백 혹은 여는 괄호 있어야한다.
@@ -477,7 +479,7 @@ int InfixToPostfix::Is_op(int index){
 int InfixToPostfix::Is_minus_con(int index){
 	//-가 문장 끝 오는 것 방지하는 if문
 	tmp_str.AppendChar(tmpbuf[index]);
-	pr_str.AppendChar(tmpbuf[index]);
+	pr_str.AppendChar(tmpbuf[index]); // lika
 	if (index + 1 < len){
 		if (tmpbuf[index + 1] == '-'){
 			errnum = 5;

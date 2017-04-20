@@ -35,7 +35,7 @@ void Interpreter::calc()
 	bool undefined=false;
 	bool error_program=true;
 	std::stack<int> cal_stack;
-	int curopt = -1;
+	int curopt = -1; // lika
 
 	for (i = 0; i < len; i++){
 		//라인 한줄
@@ -83,7 +83,7 @@ void Interpreter::calc()
 				if (isdigit(token[0]) || token[0] == '-'){
 					cal_stack.push(atoi(token));
 					int cal1, cal2;
-					if (curopt == 0) {
+					if (curopt == 0) { // lika : IF 연산 수행
 						if (cal_stack.size() >= 2) {
 							cal2 = cal_stack.top();
 							cal_stack.pop();
@@ -102,7 +102,7 @@ void Interpreter::calc()
 						}
 						curopt = -1;
 					}
-					else if (curopt == 1) {
+					else if (curopt == 1) { // lika : MINUS 연산 수행
 						if (cal_stack.size() >= 2) {
 							cal2 = cal_stack.top();
 							cal_stack.pop();
@@ -114,7 +114,7 @@ void Interpreter::calc()
 						else {
 							error_program = true;
 						}
-						curopt = -1;
+						curopt = -1; // 연산 수행 후 다시 -1 저장.
 					}
 				}
 				//변수
@@ -151,6 +151,7 @@ void Interpreter::calc()
 		}
 		//연산자
 		else {
+			// lika : 연산하는 부분 삭제. curopt에 해당하는 연산자의 번호를 저장함.
 			if (!undefined && !error_program){
 				//IF
 				if (!strcmp(token, oper[0])){
